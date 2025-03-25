@@ -1,0 +1,369 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div
+  class="container d-flex justify-content-center align-items-center min-vh-100"
+>
+  <div class="edit-card shadow-lg p-4">
+    <h2 class="text-center mb-4 animated-heading">Edit Your Listing</h2>
+    <form
+      method="post"
+      action="/listings/<%= listings.id %>?_method=PUT"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <div class="form-floating mb-4">
+        <input
+          type="text"
+          id="title"
+          class="form-control input-animated"
+          name="listing[title]"
+          value="<%= listings.title %>"
+          required
+        />
+        <label for="title">Listing Title</label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <textarea
+          name="listing[description]"
+          id="description"
+          class="form-control input-animated"
+          required
+        >
+<%= listings.description %></textarea
+        >
+        <label for="description">Description</label>
+      </div>
+
+      <div class="mb-4 text-center">
+        <label for="img" class="form-label">Current Image</label>
+        <div class="show-card">
+          <img src="<%= newImgUrl %>" class="preview-image" />
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="image" class="form-label">Upload New Image</label>
+        <input
+          type="file"
+          id="image"
+          class="form-control file-upload"
+          name="listing[image]"
+        />
+      </div>
+
+      <div class="row">
+        <div class="form-floating mb-4 col-md-4">
+          <input
+            type="number"
+            id="price"
+            class="form-control input-animated"
+            name="listing[price]"
+            value="<%= listings.price %>"
+            required
+          />
+          <label for="price">Price</label>
+        </div>
+        <div class="form-floating mb-4 col-md-8">
+          <input
+            type="text"
+            id="country"
+            class="form-control input-animated"
+            name="listing[country]"
+            value="<%= listings.country %>"
+            required
+          />
+          <label for="country">Country</label>
+        </div>
+      </div>
+
+      <div class="form-floating mb-4">
+        <input
+          type="text"
+          id="location"
+          class="form-control input-animated"
+          name="listing[location]"
+          value="<%= listings.location %>"
+          required
+        />
+        <label for="location">Location</label>
+      </div>
+
+      <button class="btn btn-danger w-100 mt-3">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<script src="/js/edit.js"></script>
+
+<style>
+  /* Light Background */
+  body {
+    background: #f8f9fa;
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+  }
+
+  /*  Edit Form Card */
+  .edit-card {
+    max-width: 800px;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    margin: auto;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  }
+
+  /*   smooth transition */
+  .edit-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Heading */
+  .animated-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #dc3545;
+    text-align: center;
+    animation: fadeInSlide 1.5s ease-in-out, pulseGlow 1.8s infinite alternate;
+  }
+
+  /* Label Inputs */
+  .form-floating .input-animated {
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 14px;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid #ccc;
+  }
+
+  /* Glow Effect */
+  .input-animated:focus {
+    border-color: #dc3545;
+    box-shadow: 0px 0px 10px rgba(220, 53, 69, 0.3);
+    animation: inputFocus 0.4s ease-in-out;
+  }
+
+  /*  Image Preview Styling */
+  .show-card {
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+  }
+
+  .preview-image {
+    width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  /* File Upload Styling */
+  .file-upload {
+    border: 2px dashed #bbb;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .file-upload:hover {
+    border-color: #dc3545;
+    box-shadow: 0px 0px 10px rgba(220, 53, 69, 0.2);
+    animation: fileUploadBounce 0.5s ease-in-out;
+  }
+
+  /*   Button */
+  .btn-danger {
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 14px;
+    background: #dc3545;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background: #b02a37;
+    box-shadow: 0px 0px 15px rgba(220, 53, 69, 0.6);
+    animation: buttonGlow 0.5s ease-in-out;
+  }
+
+  /* Keyframe Animations */
+  @keyframes fadeInSlide {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulseGlow {
+    0% {
+      text-shadow: 0px 0px 10px rgba(220, 53, 69, 0.5);
+    }
+    100% {
+      text-shadow: 0px 0px 20px rgba(220, 53, 69, 1);
+    }
+  }
+
+  @keyframes inputFocus {
+    0% {
+      transform: scale(1);
+      box-shadow: 0px 0px 8px rgba(220, 53, 69, 0.3);
+    }
+    100% {
+      transform: scale(1.02);
+      box-shadow: 0px 0px 15px rgba(220, 53, 69, 0.6);
+    }
+  }
+
+  @keyframes fileUploadBounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes buttonGlow {
+    0% {
+      box-shadow: 0px 0px 10px rgba(220, 53, 69, 0.4);
+    }
+    100% {
+      box-shadow: 0px 0px 20px rgba(220, 53, 69, 1);
+    }
+  }
+
+  /*  Responsive Design */
+  @media (max-width: 992px) {
+    .edit-card {
+      max-width: 90%;
+      padding: 30px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .edit-card {
+      max-width: 95%;
+      padding: 25px;
+    }
+  }
+</style>
+
+<!--old <% layout("/layouts/boilerplate.ejs") %>
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h2>Edit A Listing:</h2>
+    <form
+      method="post"
+      action="/listings/<%= listings.id %>?_method=PUT"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          id="title"
+          class="form-control"
+          name="listing[title]"
+          value="<%= listings.title %>"
+          required
+        />
+        <div class="valid-feedback">Title looks Good</div>
+        <div class="invalid-feedback">Title is Empty</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">description</label>
+        <textarea
+          name="listing[description]"
+          id="description"
+          class="form-control"
+          required
+        >
+        <%= listings.description %></textarea
+        >
+        <div class="invalid-feedback">Enter short description</div>
+        <div class="valid-feedback">Description looks Good</div>
+      </div>
+
+      <div class="mb-3 card col-4 show-card listing-card">
+        <label for="img" class="form-label">Original Image</label>
+        <img src="<%=newImgUrl%>" />
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">image</label>
+        <input
+          type="file"
+          id="image"
+          class="form-control"
+          name="listing[image]"
+        />
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">price</label>
+          <input
+            type="number"
+            id="price"
+            class="form-control"
+            name="listing[price]"
+            value="<%= listings.price %>"
+            required
+          />
+          <div class="invalid-feedback">Enter the valid Price</div>
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">country</label>
+          <input
+            type="text"
+            id="country"
+            class="form-control"
+            name="listing[country]"
+            value="<%= listings.country %> "
+            required
+          />
+          <div class="invalid-feedback">Country should be valid</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">location</label>
+        <input
+          type="text"
+          id="location"
+          class="form-control"
+          name="listing[location]"
+          value="<%= listings.location %> "
+          required
+        />
+        <div class="invalid-feedback">Location should be valid</div>
+      </div>
+
+      <button class="btn btn-danger mt-3 mb-3">Edit Listing</button>
+    </form>
+  </div>
+</div> -->
+
+<script src="/js/validate.js"></script>

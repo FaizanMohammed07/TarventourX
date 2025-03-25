@@ -1,0 +1,660 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<style>
+  /* ✅ Filters Navbar - Glassmorphism + Light Red Theme */
+  .filters-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 87, 87, 0.15); /* Light red pastel */
+    backdrop-filter: blur(20px);
+    padding: 15px 25px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(255, 87, 87, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: navbarFadeIn 1s ease-in-out;
+  }
+
+  /* ✅ Smooth Fade-in Animation */
+  @keyframes navbarFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ✅ Scrollable Filters Container */
+  .filters-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    flex-grow: 1;
+    padding: 5px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #ffaaaa transparent; /* Light Red Scrollbar */
+  }
+
+  /* Hide default scrollbar */
+  .filters-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ✅ Filter Items - Hover & Active Effects */
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 12px;
+    min-width: 100px;
+    text-align: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #333;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  /* ✅ Hover Effects - Soft Bounce + Color Change */
+  .filter:hover {
+    transform: scale(1.07);
+    background: rgba(255, 87, 87, 0.3);
+    box-shadow: 0px 5px 15px rgba(255, 87, 87, 0.25);
+    color: white;
+  }
+
+  /* ✅ Active Filter Effect */
+  .filter.active {
+    background: rgba(255, 87, 87, 0.5);
+    transform: scale(1.1);
+    color: white;
+    animation: pulse 1s infinite alternate;
+  }
+
+  /* ✅ Smooth Pulse Effect for Active Filter */
+  @keyframes pulse {
+    0% {
+      box-shadow: 0px 0px 10px rgba(255, 87, 87, 0.3);
+    }
+    100% {
+      box-shadow: 0px 0px 20px rgba(255, 87, 87, 0.6);
+    }
+  }
+
+  /* ✅ Icon Styles */
+  .filter i {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+
+  /* ✅ Text Styles */
+  .filter p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #222;
+  }
+
+  /* ✅ Scroll Buttons */
+  .scroll-btn {
+    background: rgba(255, 87, 87, 0.3);
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  /* ✅ Scroll Button Hover Effect */
+  .scroll-btn:hover {
+    background: rgba(255, 87, 87, 0.5);
+    transform: scale(1.2);
+  }
+
+  /* ✅ Tax Toggle Section */
+  .tax-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 14px;
+  }
+
+  /* ✅ Custom Toggle Switch */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+  }
+
+  input:checked + .slider {
+    background-color: #ff5757;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(14px);
+  }
+
+  /* ✅ Fully Responsive Design */
+  @media (max-width: 768px) {
+    .filters-navbar {
+      padding: 12px 20px;
+    }
+
+    .filters-container {
+      gap: 12px;
+    }
+
+    .filter {
+      min-width: 80px;
+    }
+
+    .filter i {
+      font-size: 20px;
+    }
+
+    .filter p {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .filters-navbar {
+      padding: 10px 15px;
+    }
+
+    .filter {
+      min-width: 60px;
+      padding: 8px;
+    }
+
+    .filter i {
+      font-size: 18px;
+    }
+
+    .filter p {
+      font-size: 10px;
+    }
+  }
+
+  .filters-container {
+    display: flex;
+    gap: 10px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    flex-grow: 1;
+    padding: 5px 0;
+  }
+
+  .filters-container {
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* Filter Items */
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 6px;
+    min-width: 80px;
+    text-align: center;
+    transition: 0.3s;
+  }
+
+  .filter:hover {
+    transform: scale(1.05);
+  }
+
+  .filter i {
+    font-size: 18px;
+    color: #6c757d;
+  }
+
+  .filter p {
+    font-size: 12px;
+    font-weight: 500;
+    color: black;
+    margin-top: 4px;
+  }
+
+  /* Active Filter Effect */
+  .filter.active {
+    border-bottom: 2px solid black;
+    transform: scale(1.1);
+  }
+
+  .filter.active i {
+    color: black;
+  }
+
+  /* Scroll Buttons */
+  .scroll-btn {
+    background: transparent;
+    border: none;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px;
+    transition: 0.3s;
+  }
+
+  .scroll-btn:hover {
+    color: #ff5a5f;
+  }
+  /* Tax Toggle Section */
+  .tax-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #222;
+  }
+  /* Responsive - Keep in Single Line */
+  @media (max-width: 768px) {
+    .filters-container {
+      gap: 10px;
+    }
+    .filter {
+      min-width: 60px;
+    }
+    .filter i {
+      font-size: 14px;
+    }
+    .filter p {
+      font-size: 10px;
+    }
+    .tax-toggle {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+  /* new */
+  /* ✅ Smooth Fade-in Animation */
+  @keyframes fadeInSmooth {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* ✅ Listing Card - Premium UI */
+  .listing-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    border: none !important;
+    animation: fadeInSmooth 0.6s ease-in-out;
+  }
+
+  /* ✅ Refined Hover Effect - Smooth & Subtle */
+  .listing-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ✅ Image Container - Overlay Effect */
+  .card-img-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+  }
+
+  /* ✅ Listing Image - Fixed Size */
+  .card-img-top {
+    border-radius: 15px;
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    transition: filter 0.3s ease-in-out; /* Only transition filter, not size */
+  }
+
+  /* ✅ Image Hover Effect - Brightness and Filter */
+  .listing-card:hover .card-img-top {
+    filter: brightness(0.9); /* Reduced brightness on hover */
+  }
+
+  /* ✅ Gradient Overlay on Hover */
+  .card-img-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .listing-card:hover .card-img-container::before {
+    opacity: 1;
+  }
+
+  /* ✅ Glassmorphism Price Tag */
+  .glass-price-tag {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #222;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* ✅ Price Tag Hover Glow */
+  .listing-card:hover .glass-price-tag {
+    background: rgba(255, 87, 87, 0.5);
+    color: white;
+  }
+
+  /* ✅ Wishlist Like Button */
+  .like-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  .like-btn i {
+    font-size: 20px;
+    color: #ff4a4a;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* ✅ Like Button Click Animation */
+  .like-btn:active i {
+    animation: heartBeat 0.4s ease-in-out;
+    color: #ff0000;
+  }
+
+  /* ✅ Heart Beat Animation */
+  @keyframes heartBeat {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+
+  /* ✅ Card Body - Stylish Text */
+  .card-body {
+    padding: 12px 0;
+    text-align: left;
+  }
+
+  /* ✅ Card Text */
+  .card-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  /* ✅ GST Info */
+  .tax-info {
+    font-size: 12px;
+    color: rgba(255, 87, 87, 0.8);
+  }
+
+  /* ✅ Responsive Fixes */
+  @media (max-width: 768px) {
+    .listing-card {
+      padding: 12px;
+    }
+
+    .card-img-top {
+      height: 15rem;
+    }
+
+    .glass-price-tag {
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+
+    .like-btn {
+      top: 10px;
+      right: 10px;
+      padding: 8px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .listing-card {
+      padding: 10px;
+    }
+
+    .card-img-top {
+      height: 12rem;
+    }
+
+    .like-btn i {
+      font-size: 18px;
+    }
+
+    .glass-price-tag {
+      font-size: 10px;
+      padding: 6px 10px;
+    }
+  }
+</style>
+
+<div class="filters-navbar">
+  <button class="scroll-btn left-btn">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+  <div class="filters-container">
+    <div class="filter active" data-filter="trending">
+      <i class="fa-solid fa-fire"></i>
+      <p>Trending</p>
+    </div>
+    <div class="filter" data-filter="rooms">
+      <i class="fa-solid fa-bed"></i>
+      <p>Rooms</p>
+    </div>
+    <div class="filter" data-filter="mountains">
+      <i class="fa-solid fa-mountain-city"></i>
+      <p>Mountains</p>
+    </div>
+    <div class="filter" data-filter="camping">
+      <i class="fa-solid fa-campground"></i>
+      <p>Camping</p>
+    </div>
+    <div class="filter" data-filter="swimming">
+      <i class="fa-solid fa-person-swimming"></i>
+      <p>Swimming</p>
+    </div>
+    <div class="filter" data-filter="arctic">
+      <i class="fa-solid fa-snowflake"></i>
+      <p>Arctic</p>
+    </div>
+    <div class="filter" data-filter="swimming">
+      <i class="fa-solid fa-person-swimming"></i>
+      <p>Swimming</p>
+    </div>
+    <div class="filter" data-filter="arctic">
+      <i class="fa-solid fa-snowflake"></i>
+      <p>Arctic</p>
+    </div>
+    <div class="filter" data-filter="arctic">
+      <i class="fa-solid fa-snowflake"></i>
+      <p>Arctic</p>
+    </div>
+    <div class="filter" data-filter="desert">
+      <i class="fa-solid fa-fire"></i>
+      <p>Desert</p>
+    </div>
+    <div class="filter" data-filter="boats">
+      <i class="fa-solid fa-ship"></i>
+      <p>Boats</p>
+    </div>
+    <div class="filter" data-filter="golfing">
+      <i class="fa-solid fa-golf-ball-tee"></i>
+      <p>Golfing</p>
+    </div>
+    <div class="filter" data-filter="treehouses">
+      <i class="fa-solid fa-tree-city"></i>
+      <p>Tree Houses</p>
+    </div>
+  </div>
+
+  <button class="scroll-btn right-btn">
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+  <div class="tax-toggle">
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label-reverse" for="flexSwitchCheckDefault"
+        >Display total after Taxes</label
+      >
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+  <% for(let listing of allListings){ %>
+  <a href="/listings/<%= listing._id %>" class="a-link">
+    <div class="card col listing-card">
+      <div class="card-img-container">
+        <img
+          src="<%= listing.image.url %>"
+          class="card-img-top"
+          alt="listing_image"
+        />
+        <!-- ✅ Like Button (Wishlist) -->
+        <div class="like-btn">
+          <i class="fa-regular fa-heart"></i>
+        </div>
+
+        <!-- ✅ Glassmorphism Price Tag -->
+        <div class="glass-price-tag">
+          &#x20b9;<b> <%= (listing.price || 0 ).toLocaleString("en-in") %></b
+          >/night
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">
+          <b><%= listing.title %></b> <br />
+          <i class="tax-info">+18% GST</i>
+        </p>
+      </div>
+    </div>
+  </a>
+  <% } %>
+</div>
+
+<!-- 
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+  <% for(let listing of allListings){ %>
+  <a href="/listings/<%= listing._id %>" class="a-link">
+    <div class="card col listing-card">
+      <img
+        src="<%= listing.image.url %>"
+        class="card-img-top"
+        alt="listing_image"
+        style="height: 20rem"
+      />
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <p class="card-text">
+          <b><%= listing.title %></b> <br />
+          &#x20b9;<b> <%= (listing.price || 0 ).toLocaleString("en-in") %></b>
+          night
+          <i class="tax-info">&nbsp;&nbsp; +18%gst</i>
+        </p>
+      </div>
+    </div>
+    <% } %>
+  </a>
+</div> -->
+
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxinfo = document.getElementsByClassName("tax-info");
+    for (info of taxinfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".filters-container");
+    const leftBtn = document.querySelector(".left-btn");
+    const rightBtn = document.querySelector(".right-btn");
+
+    leftBtn.addEventListener("click", () => {
+      container.scrollBy({ left: -150, behavior: "smooth" });
+    });
+
+    rightBtn.addEventListener("click", () => {
+      container.scrollBy({ left: 150, behavior: "smooth" });
+    });
+  });
+</script>

@@ -1,0 +1,87 @@
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Brand & About -->
+    <div class="footer-brand">
+      <h2>TraventourX</h2>
+      <p>
+        Explore the world with us! Find the best places, book with ease, and
+        make memories.
+      </p>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/listings">Explore Destinations</a></li>
+        <li><a href="/wishlist">Your Wishlist</a></li>
+        <li><a href="/bookings">My Bookings</a></li>
+        <li><a href="/contact">Get in Touch</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter Signup -->
+    <div class="footer-newsletter">
+      <h3>Stay Updated</h3>
+      <p>Subscribe for exclusive deals & travel inspiration.</p>
+      <form action="/subscribe" method="POST">
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bottom Footer -->
+  <div class="footer-bottom">
+    <p>
+      &copy; <%= new Date().getFullYear() %> TraventourX Private Limited. All
+      Rights Reserved.
+    </p>
+    <div class="footer-terms">
+      <a href="/privacy">Privacy</a> | <a href="/terms">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const footer = document.querySelector(".footer");
+
+    function checkScroll() {
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const footerPosition = footer.offsetTop;
+
+      if (scrollPosition >= footerPosition) {
+        footer.classList.add("visible");
+      }
+    }
+
+    window.addEventListener("scroll", checkScroll);
+  });
+</script>
+
+<!-- <footer old>
+  <div class="f-info">
+    <div class="f-social">
+      <i class="fa-brands fa-square-facebook"></i>
+      <i class="fa-brands fa-square-instagram"></i>
+      <i class="fa-brands fa-linkedin"></i>
+    </div>
+    <div class="f-brand">&copy; Wanderlust Private Limited</div>
+    <div class="f-terms">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+  </div>
+</footer> -->

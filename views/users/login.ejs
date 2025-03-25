@@ -1,0 +1,194 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="auth-card p-4">
+    <h1 class="text-center mb-4 animated-heading">Login to TraventourX</h1>
+    <form action="/login" method="post" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="form-control input-animated"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control input-animated"
+          required
+        />
+      </div>
+      <button class="btn btn-success w-100 btn-animated">Login</button>
+      <p class="text-center mt-3">
+        Don't have an account?
+        <a href="/signup" class="text-decoration-none">Sign Up</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<style>
+  /* 🌌 Full-Page Animated Background */
+  body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background-size: 400% 400%;
+    animation: gradientAnimation 8s infinite alternate;
+    font-family: "Poppins", sans-serif;
+  }
+
+  /* 🌟 Animated Heading */
+  .animated-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ffcc00, #ff7e5f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInSlide 1.5s ease-in-out, glowText 1.5s infinite alternate;
+    text-shadow: 0px 0px 10px rgba(255, 204, 0, 0.8);
+  }
+
+  /* 💎 Glassmorphism Card with Glow Effect */
+  .auth-card {
+    max-width: 400px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    color: white;
+    animation: fadeIn 1.2s ease-in-out;
+  }
+
+  /* 🔥 Animated Inputs with Neon Glow */
+  .input-animated {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid transparent;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .input-animated:focus {
+    border-color: #ffcc00;
+    box-shadow: 0px 0px 15px rgba(255, 204, 0, 0.8);
+    background: rgba(255, 255, 255, 0.3);
+    animation: pulse 1s infinite alternate;
+  }
+
+  /* 🎇 Button Hover Animation */
+  .btn-animated {
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-animated:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  }
+
+  /* 🔮 Hover Effect for Links */
+  .text-decoration-none {
+    color: #ffcc00;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .text-decoration-none:hover {
+    color: #ffffff;
+    text-decoration: underline;
+    animation: glowText 0.5s infinite alternate;
+  }
+
+  /* 🎭 Keyframe Animations */
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes fadeInSlide {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes glowText {
+    0% {
+      text-shadow: 0px 0px 5px rgba(255, 204, 0, 0.5);
+    }
+    100% {
+      text-shadow: 0px 0px 15px rgba(255, 204, 0, 1);
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.4);
+    }
+    100% {
+      transform: scale(1.05);
+      box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.8);
+    }
+  }
+
+  /* 📱 Fully Responsive */
+  @media (max-width: 768px) {
+    .auth-card {
+      max-width: 90%;
+    }
+  }
+</style>
+
+<!--old <% layout("/layouts/boilerplate.ejs") %>
+<div class="row mt-3">
+  <h1 class="offset-3 mb-3">Login to WanderLust</h1>
+  <div class="col-6 offset-3">
+    <form action="/login" method="post" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+          required
+        />
+      </div>
+      <button class="btn btn-success">Login</button>
+    </form>
+  </div>
+</div> -->

@@ -1,0 +1,291 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div
+  class="container d-flex justify-content-center align-items-center min-vh-100"
+>
+  <div class="listing-card shadow-lg p-4">
+    <h2 class="text-center mb-4 animated-heading">Create A New Listing</h2>
+    <form
+      method="post"
+      action="/listings"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <div class="form-floating mb-4">
+        <input
+          type="text"
+          name="listing[title]"
+          id="title"
+          class="form-control input-animated"
+          placeholder="Enter Title"
+          required
+        />
+        <label for="title">Listing Title</label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <textarea
+          name="listing[description]"
+          id="description"
+          class="form-control input-animated"
+          placeholder="Enter description"
+          required
+        ></textarea>
+        <label for="description">Description</label>
+      </div>
+
+      <div class="mb-4">
+        <label for="img" class="form-label">Upload Listing Image</label>
+        <input
+          type="file"
+          name="listing[image]"
+          id="img"
+          class="form-control file-upload"
+          required
+        />
+      </div>
+
+      <label for="category">Category</label>
+      <select name="listing[category]" id="category" required>
+        <option value="">Select a Category</option>
+        <option value="swimming">Swimming</option>
+        <option value="arctic">Arctic</option>
+        <option value="desert">Desert</option>
+        <option value="boats">Boats</option>
+        <option value="camping">Camping</option>
+        <option value="mountains">Mountains</option>
+      </select>
+
+      <br />
+
+      <div class="row">
+        <div class="form-floating mb-4 col-md-4">
+          <input
+            name="listing[price]"
+            id="price"
+            class="form-control input-animated"
+            placeholder="1200"
+            required
+          />
+          <label for="price">Price</label>
+        </div>
+        <div class="form-floating mb-4 col-md-8">
+          <input
+            type="text"
+            name="listing[country]"
+            id="country"
+            class="form-control input-animated"
+            placeholder="India"
+            required
+          />
+          <label for="country">Country</label>
+        </div>
+      </div>
+
+      <div class="form-floating mb-4">
+        <input
+          type="text"
+          name="listing[location]"
+          id="location"
+          class="form-control input-animated"
+          placeholder="Hyderabad"
+          required
+        />
+        <label for="location">Location</label>
+      </div>
+
+      <button class="btn btn-primary w-100 mt-3">Create Listing</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  /* 🌿 Light Background */
+  body {
+    background: #f4f4f4;
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+  }
+
+  /* 📌 Centered & Well-Spaced Form */
+  .listing-card {
+    max-width: 750px; /* ✅ Adjusted Width for Laptops */
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    margin: auto;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ✨ Animated Heading */
+  .animated-heading {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    animation: fadeInSlide 1s ease-in-out;
+  }
+
+  /* 📄 Floating Label Inputs */
+  .form-floating .input-animated {
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 14px;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid #ccc;
+  }
+
+  .input-animated:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.3);
+  }
+
+  /* 📷 File Upload Styling */
+  .file-upload {
+    border: 2px dashed #bbb;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .file-upload:hover {
+    border-color: #007bff;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+  }
+
+  /* 🎭 Smooth Button Hover */
+  .btn-primary {
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 14px;
+    background: #007bff;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background: #0056b3;
+  }
+
+  /* 🎭 Keyframe Animations */
+  @keyframes fadeInSlide {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 📱 Responsive Design */
+  @media (max-width: 992px) {
+    .listing-card {
+      max-width: 90%;
+      padding: 30px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .listing-card {
+      max-width: 95%;
+      padding: 25px;
+    }
+  }
+</style>
+
+<!--old <% layout("/layouts/boilerplate.ejs") %>
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h2>Create A New Listing:</h2>
+    <form
+      method="post"
+      action="/listings"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          name="listing[title]"
+          id="title"
+          placeholder="Enter Title "
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Title looks Good</div>
+        <div class="invalid-feedback">Title is Empty</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">description</label>
+        <textarea
+          name="listing[description]"
+          id="description"
+          placeholder="enter description"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Enter short description</div>
+        <div class="valid-feedback">Description looks Good</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="img" class="form-label">Upload Listing Image</label>
+        <input
+          type="file"
+          name="listing[image]"
+          id="img"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">price</label>
+          <input
+            name="listing[price]"
+            id="price"
+            placeholder="1200"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Enter the valid Price</div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">country</label>
+          <input
+            type="text"
+            name="listing[country]"
+            id="country"
+            placeholder="India"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Country should be valid</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">location</label>
+        <input
+          type="text"
+          name="listing[location]"
+          id="location"
+          placeholder="Hyderabad"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Location should be valid</div>
+      </div>
+
+      <button class="btn btn-success mt-3 mb-3">Create Listing</button>
+    </form>
+  </div>
+</div> -->
